@@ -2,12 +2,12 @@
 
 Keep Jev inference in Temporal Activities and let deterministic Workflows consume the returned DecisionPacks record. A recorded result can be compared against changed decision gates without calling the model again.
 
-**v0.1.0 experimental alpha · MIT · TypeScript/JavaScript · Node.js 22+**. Uses the official Temporal SDK 1.24.0. Independent community integration.
+**v0.1.2 experimental alpha · MIT · TypeScript/JavaScript · Node.js 22+**. Uses the official Temporal SDK 1.24.0. Independent community integration.
 
 ## Install
 
 ```sh
-npm install github:gbesse/temporal-jev-decisions#v0.1.1 @temporalio/activity@1.24.0 @temporalio/workflow@1.24.0 @temporalio/common@1.24.0
+npm install github:gbesse/temporal-jev-decisions#v0.1.2 @temporalio/activity@1.24.0 @temporalio/workflow@1.24.0 @temporalio/common@1.24.0
 ```
 
 Register `createDecisionActivities()` on your Worker. The `jevDecision({pack,state})` Activity returns a full DecisionPacks record. `@gbesse/temporal-jev-decisions/workflow` exports the sample `decideWorkflow`. Set `TYPESAFE_API_KEY` only in the worker environment.
@@ -41,3 +41,11 @@ Five tests use the official `MockActivityEnvironment`: heartbeat/provenance, gat
 See [reuse and provenance](docs/reuse.md), [contributing](CONTRIBUTING.md) and [security](SECURITY.md).
 
 [Recorded verification scope](docs/verification.md).
+
+## October 2026 improvement · Amélioration d’octobre 2026 · Mejora de octubre de 2026
+
+Run `npm run demo:replay` to see a stricter policy turn one recorded synthetic billing decision into review with no second model call.
+
+Exécutez `npm run demo:replay` pour voir une règle plus stricte transformer une décision de facturation synthétique enregistrée en revue sans second appel au modèle.
+
+Ejecute `npm run demo:replay` para ver cómo una regla más estricta convierte una decisión sintética de facturación registrada en revisión sin una segunda llamada al modelo.
