@@ -57,3 +57,10 @@ EN: Activities now persist fixed FR/EN/ES failure messages and typed `DecisionPr
 FR : Les Activities conservent désormais des messages fixes FR/EN/ES et codes `DecisionProviderError`/`DecisionTimeout`, au lieu des diagnostics bruts. Les entrées invalides restent non réessayables ; l’annulation native conserve l’échec SDK approprié. Les échecs fournisseur restent réessayables à la frontière Activity, tandis que le Workflow fourni autorise une tentative. Cela évite de stocker les détails bruts dans l’historique ; cela n’annule pas les effets externes et ne garantit pas une inférence unique avec des retries personnalisés.
 
 ES: Activities guardan mensajes fijos FR/EN/ES y códigos `DecisionProviderError`/`DecisionTimeout`, no diagnósticos brutos. Entradas incorrectas siguen sin reintento; cancelación nativa conserva fallo SDK. Fallos del proveedor permiten reintento en Activity, mientras Workflow incluido permite un intento. Evita detalles brutos en historial; no cancela efectos externos ni garantiza inferencia única con retries personalizados.
+
+
+FR : L’export `@gbesse/temporal-jev-decisions/workflow` fournit les types de `decideWorkflow(request)` et de son reçu, avec le même contrat `Request` que l’Activity. La vérification des types n’exécute pas un Workflow ni un cluster Temporal.
+
+EN: The `@gbesse/temporal-jev-decisions/workflow` export provides types for `decideWorkflow(request)` and its receipt, using the same `Request` contract as the Activity. Type checking does not run a Workflow or Temporal cluster.
+
+ES: El export `@gbesse/temporal-jev-decisions/workflow` proporciona los tipos de `decideWorkflow(request)` y su recibo, con el mismo contrato `Request` que la Activity. La comprobación de tipos no ejecuta un Workflow ni un cluster Temporal.
