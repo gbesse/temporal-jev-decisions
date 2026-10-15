@@ -31,3 +31,8 @@ test('provider timeout is explicit, not an invented fallback', async () => {
   const activity = createDecisionActivities({ provider: () => new Promise(() => {}), timeoutMs: 5 }).jevDecision;
   await assert.rejects(new MockActivityEnvironment().run(activity, request), /timeout/);
 });
+
+test('provider diagnostics never enter the persisted Temporal failure',async()=>{
+ const activity=createDecisionActivities({provider:async()=>{throw new Error('synthetic-private-diagnostic');}}).jevDecision;
+ await assert.rejects(new MockActivityEnvironment().run(activity,request),error=>error.type==='DecisionProviderError'&&!JSON.stringify(error).includes('synthetic-private-diagnostic')&&!error.message.includes('synthetic-private-diagnostic'));
+});
