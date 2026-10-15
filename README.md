@@ -49,3 +49,11 @@ Run `npm run demo:replay` to see a stricter policy turn one recorded synthetic b
 Exécutez `npm run demo:replay` pour voir une règle plus stricte transformer une décision de facturation synthétique enregistrée en revue sans second appel au modèle.
 
 Ejecute `npm run demo:replay` para ver cómo una regla más estricta convierte una decisión sintética de facturación registrada en revisión sin una segunda llamada al modelo.
+
+## Private failure history / Historique privé / Historial privado
+
+EN: Activities now persist fixed FR/EN/ES failure messages and typed `DecisionProviderError`/`DecisionTimeout` codes instead of arbitrary provider diagnostics. Invalid inputs remain non-retryable; native Temporal cancellation preserves the SDK cancellation failure. Provider failures remain retryable at the Activity boundary, while the bundled Workflow still permits one attempt. This avoids storing raw error details in workflow history; it does not cancel external side effects or guarantee exactly-once inference under caller-defined retries.
+
+FR : Les Activities conservent désormais des messages fixes FR/EN/ES et codes `DecisionProviderError`/`DecisionTimeout`, au lieu des diagnostics bruts. Les entrées invalides restent non réessayables ; l’annulation native conserve l’échec SDK approprié. Les échecs fournisseur restent réessayables à la frontière Activity, tandis que le Workflow fourni autorise une tentative. Cela évite de stocker les détails bruts dans l’historique ; cela n’annule pas les effets externes et ne garantit pas une inférence unique avec des retries personnalisés.
+
+ES: Activities guardan mensajes fijos FR/EN/ES y códigos `DecisionProviderError`/`DecisionTimeout`, no diagnósticos brutos. Entradas incorrectas siguen sin reintento; cancelación nativa conserva fallo SDK. Fallos del proveedor permiten reintento en Activity, mientras Workflow incluido permite un intento. Evita detalles brutos en historial; no cancela efectos externos ni garantiza inferencia única con retries personalizados.
