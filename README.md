@@ -64,3 +64,10 @@ FR : L’export `@gbesse/temporal-jev-decisions/workflow` fournit les types de `
 EN: The `@gbesse/temporal-jev-decisions/workflow` export provides types for `decideWorkflow(request)` and its receipt, using the same `Request` contract as the Activity. Type checking does not run a Workflow or Temporal cluster.
 
 ES: El export `@gbesse/temporal-jev-decisions/workflow` proporciona los tipos de `decideWorkflow(request)` y su recibo, con el mismo contrato `Request` que la Activity. La comprobación de tipos no ejecuta un Workflow ni un cluster Temporal.
+
+
+FR : L’admission de l’Activity limite le JSON `{pack,state}` à 100 000 **octets UTF-8**, et non caractères JavaScript. Le dépassement échoue sans heartbeat ni appel fournisseur avec `InvalidDecisionRequest`, non retentable. Cette borne ne comprend pas l’enveloppe Temporal et n’est pas une limite de tokens du modèle. Tests natifs `MockActivityEnvironment`, sans service ni Worker actif.
+
+EN: Activity admission caps the JSON `{pack,state}` at 100,000 **UTF-8 bytes**, rather than JavaScript characters. Oversize input fails before heartbeat or provider work with non-retryable `InvalidDecisionRequest`. This excludes Temporal’s envelope and is not a model token limit. Native `MockActivityEnvironment` tests; no service or live Worker.
+
+ES: La admisión de Activity limita el JSON `{pack,state}` a 100.000 **bytes UTF-8**, no caracteres JavaScript. El exceso falla antes de heartbeat o proveedor con `InvalidDecisionRequest` no reintentable. Excluye la envoltura Temporal y no limita tokens del modelo. Pruebas nativas `MockActivityEnvironment`, sin servicio ni Worker activo.

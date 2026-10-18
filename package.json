@@ -1,6 +1,6 @@
 {
   "name": "@gbesse/temporal-jev-decisions",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Bounded Jev Activities and deterministic Workflow examples for Temporal.",
   "type": "module",
   "license": "MIT",
