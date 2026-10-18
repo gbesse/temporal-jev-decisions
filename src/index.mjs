@@ -10,7 +10,7 @@ export function createDecisionActivities({ provider, timeoutMs = 30000 } = {}) {
       const context = Context.current(); let pack, state;
       try {
         ({ pack, state } = snapshot(request)); validatePack(pack);
-        ensure(JSON.stringify({ pack, state }).length <= 100000, 'Decision input too large');
+        ensure(Buffer.byteLength(JSON.stringify({ pack, state }), 'utf8') <= 100000, 'Decision input too large');
       } catch (error) { throw ApplicationFailure.nonRetryable('Requête de décision invalide / Invalid decision request / Solicitud de decisión no válida', 'InvalidDecisionRequest'); }
       // Activity cancellation reaches the HTTP request. Temporal persists only a successfully returned record.
       context.heartbeat({ pack: pack.name, version: pack.version });

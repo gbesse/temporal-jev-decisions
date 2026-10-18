@@ -36,3 +36,20 @@ test('provider diagnostics never enter the persisted Temporal failure',async()=>
  const activity=createDecisionActivities({provider:async()=>{throw new Error('synthetic-private-diagnostic');}}).jevDecision;
  await assert.rejects(new MockActivityEnvironment().run(activity,request),error=>error.type==='DecisionProviderError'&&!JSON.stringify(error).includes('synthetic-private-diagnostic')&&!error.message.includes('synthetic-private-diagnostic'));
 });
+
+
+test('UTF8 byte admission rejects multibyte payloads before heartbeat or provider',async()=>{
+ const env=new MockActivityEnvironment();let calls=0,beats=0;env.on('heartbeat',()=>beats++);
+ const activity=createDecisionActivities({provider:async()=>{calls++;return structuredClone(fixture);}}).jevDecision;
+ const oversized={pack:request.pack,state:{text:'😀'.repeat(26000)}};
+ assert.ok(JSON.stringify(oversized).length<100000);assert.ok(Buffer.byteLength(JSON.stringify(oversized),'utf8')>100000);
+ await assert.rejects(env.run(activity,oversized),error=>error.nonRetryable===true&&error.type==='InvalidDecisionRequest');assert.equal(calls,0);assert.equal(beats,0);
+});
+test('exact byte boundary is admitted and the next byte is rejected',async()=>{
+ const empty={pack:request.pack,state:{text:''}},overhead=Buffer.byteLength(JSON.stringify(empty),'utf8');
+ const exact={pack:request.pack,state:{text:'a'.repeat(100000-overhead)}};let calls=0;
+ const activity=createDecisionActivities({provider:async()=>{calls++;return structuredClone(fixture);}}).jevDecision;
+ assert.equal(Buffer.byteLength(JSON.stringify(exact),'utf8'),100000);
+ await new MockActivityEnvironment().run(activity,exact);assert.equal(calls,1);
+ exact.state.text+='a';await assert.rejects(new MockActivityEnvironment().run(activity,exact),error=>error.type==='InvalidDecisionRequest');assert.equal(calls,1);
+});
